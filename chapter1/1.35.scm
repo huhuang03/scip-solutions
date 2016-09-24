@@ -19,13 +19,8 @@
   (try first-guess))
 
 
-(fixed-point (lambda (x) (/ (log 1000) (log x))) 2)
+;;(fixed-point (lambda (x) (+ 1 (/ 1.0 x))) 1)
 
-(display "使用平均阻尼")
-(newline)
+(define (fn x) (+ 1 (/ 1.0 x)))
 
-(fixed-point (lambda (x) (/ (+ (/ (log 1000) (log x)) x) 2)) 2)
-
-
-
-
+(fixed-point fn 1)
