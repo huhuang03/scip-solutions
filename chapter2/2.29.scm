@@ -15,7 +15,7 @@
   (car branch))
 
 (define (branch-structure branch)
-  (car (car branch)))
+  (car (cdr branch)))
 
 (define (leaf? branch)
   (not (pair? (branch-structure) branch)))
@@ -35,3 +35,24 @@
 
 (define (balance? mobile)
   (and (= (branch-weight (left-branch mobile)) (branch-weight (right-branch mobile)))))
+
+;; change constract impl
+;; so we just need change select func impl
+(define (make-mobile left right)
+  (cons left right))
+
+(define (make-branch length structure)
+  (cons length structure))
+
+(define (left-branch mobile)
+  (car mobile))
+
+(define (right-branch mobile)
+  (cdr mobile))
+
+
+(define (branch-length branch)
+  (car branch))
+
+(define (branch-structure branch)
+  (cdr branch))
