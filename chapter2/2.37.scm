@@ -16,16 +16,20 @@
 (define (to-list-n seqs)
   (accumulate (lambda (l rst) (cons (cdr l) rst)) '() seqs))
 
-(define s (list (list 1 2 3) (list 4 5 6) (list 7 8 9) (list 10 11 12)))
 
-;;(accumulate-n + 0 s)
+;; 向量点乘
+(define (dot-product v w)
+  (accumulate + 0 (map * v w)))
 
-;;(display (add-first s))
+;; 矩阵乘向量
+(define (matrix-*-vertor m v)
+  (map (lambda (iv) (dot-product iv v)) m))
 
-;;(newline)
+;; 矩阵转置
+(define (tranpose mat)
+  (acuumulate-n cons '() mat))
 
-;;(display (to-list-n s))
-
-;;(newline)
-
-(accumulate-n + 0 s)
+;; 矩阵 * 矩阵
+(define (matrix-*-matrix m n)
+  (let ((cols (transpose n)))
+    (map dot-product cols m)))
