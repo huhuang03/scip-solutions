@@ -59,13 +59,24 @@
       (let ((current (get (- i 1) positions)))
 	(if (= i k)
 	    #t
-	    (if (or (= last current) (= (- k i) (last current)) (= (- (- k i)) (last current)))
+	    (if (or (= last current) (= (- k i) (last current)) (= (- i k) (last current)))
 		#f
 		(iter (+ i 1))))))
     (iter 1)))
 
-;;(define (safe? k positions) #t)
+(define (safe? k positions)
+  (let ((last (get (- k 1) positions)))
+    (define (iter i)
+      (let ((current (get (- i 1) positions)))
+        (if (= i k)
+          #t
+          (if (or (= last current) (= (- k i) (- last current)) (= (- i k) (- last current)))
+            #f
+            (iter (+ i 1))))))
+    (iter 1)))
+
+;; (define (safe? k positions) #t)
 
 
-(display (queens 3))
+(display (queens 8))
 (newline)
