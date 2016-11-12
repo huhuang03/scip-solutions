@@ -16,4 +16,11 @@
 (define (scale-vect s v)
   (cons (* (xcor-vect v) s) (* s (ycor-vect v))))
 
- 
+(define (make-segment start end)
+  (cons start end))
+
+(define (start-segemnt segment)
+  (car segment))
+
+(define (end-segment segment)
+  (cdr segment))
