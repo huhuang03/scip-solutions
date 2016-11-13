@@ -30,5 +30,27 @@
 (define wave (segments->painter (append wave-painter-segments simle)))
 
 ;; b)
+(define (coner-split painter n)
+  (if (= n 0)
+      painter
+      (let ((up (up-split painter (- n 1)))
+            (right (right-split painter (- n 1))))
+        (let ((top-left up)
+              (bottom-right right)
+              (corner (corner-split painter (- n 1))))
+          (beside (blew painter top-left)
+                  (blew bottom-right corner) )))))
+
+;; c)
+(define (square-of-four tl tr bl br)
+  (lambda (painter)
+    (let ((top (beside (tl painter) (tr painter)))
+          (bottom (beside (bl painter) (br paiter))))
+      (below bottom top))))
+
+(define (square-limit painter n)
+  (let ((combine4 (square-of-four flip-vert flip-horiz
+                                  rotate90 rotate270)))
+    (combine4 (corner-split painter n))))
 
 
