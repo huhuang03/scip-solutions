@@ -1,0 +1,7 @@
+(define (union-set set1 set2)
+  (cond ((null? set1) set2)
+        ((null? set2) set1)
+        (let ((first1 (car set1)) (first2 (car set2)))
+          ((cond ((= first1 first2) (union-set (cdr set1) (cdr set2)))
+                 ((< first1 first2) (cons first1 (union-set (cdr set1) set2)))
+                 ((< first2 first1) (cons frist2 (union-set set1 (cdr set2)))))))))
