@@ -7,16 +7,23 @@
 (define (symbol-leaf x) (cadr x))
 (define (weight-leaf x) (caddr x))
 
+(define (symbols tree)
+  (if (leaf? tree)
+      (list (symbol-leaf tree))
+      (caddr tree)))
+
 (define (make-code-tree left right)
   (list left
         right
         (append (symbols left) (symbols right))
         (+ (weight left) (weight right))))
 
-(define (symbols tree)
-  (if (leaf? tree)
-      (list (symbol-leaf tree))
-      (caddr tree)))
+(define (left-branch tree)
+  (car tree))
+
+(define (right-branch tree)
+  (cadr tree))
+
 
 (define (weight tree)
   (if (leaf? tree)
@@ -37,7 +44,7 @@
 
 (define (choose-branch bit branch)
   (cond ((= bit 0) (left-branch branch))
-        ((= bit 1) (right-banch branch))
+        ((= bit 1) (right-branch branch))
         (else (error "bad bit -- CHOOSE-BRANCH" bit))))
 
 (define (adjoin-set x set)
