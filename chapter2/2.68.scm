@@ -42,6 +42,28 @@
               (decode-l (cdr bits) next-branch)))))
   (decode-l bits tree))
 
+(define (encode-symbol sym tree)
+  (define (has-symbol? sym branch)
+    (member sym (symbols branch)))
+  (if (leaf? tree)
+      '()
+      (let ((left (left-branch tree))
+            (right (right-branch tree)))
+        (cond ((has-symbol? sym left) (cons 0 (encode-symbol sym left)))
+              ((has-symbol? sym right) (cons 1 (encode-symbol sym right)))
+              (else (error "symbol not in tree" sym))))))
+
+(define (encode message tree)
+  (if (null? message)
+      '()
+      (append (encode-symbol (car message) tree)
+              (encode (cdr message) tree))))
+
+(define (member i set)
+  (cond ((null? set) #f)
+        ((eq? (car set) i) #t)
+        (else (member i (cdr set)))))
+
 (define (choose-branch bit branch)
   (cond ((= bit 0) (left-branch branch))
         ((= bit 1) (right-branch branch))
@@ -68,8 +90,10 @@
                                    (make-leaf 'C 1)))))
 (define sample-message '(0 1 1 0 0 1 0 1 0 1 1 1 0))
 
-;;(display sample-tree)
-
-(decode sample-message sample-tree)
+;;(display (member 'A '(C B)))
 ;; (display (decode sample-message sample-tree))
+;; (display (encode (decode sample-message sample-tree) sample-tree))
 
+(equal? (encode (decode sample-message sample-tree)
+                sample-tree)
+        sample-message)
