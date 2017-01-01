@@ -61,3 +61,12 @@
 
 (define (polar? z)
   (eq? (type-tag z) 'polar))
+
+
+(define (install-rectangular-package)
+  (define (real-part z) (car z))
+  (define (imag-part z) (cdr z))
+  (define (make-from-real-imag x y) (cons x y))
+  (define (magnitude z)
+    (sqrt (+ (square (real-part z))
+             (square (image-part z))))))
