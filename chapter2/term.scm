@@ -17,3 +17,11 @@
 
 (define (coeff term) (cadr term))
 
+(define (terms-zero? terms)
+  (if (empty-termlist? terms)
+      true
+      (and (=zero? (coeff (first-term terms)))
+           (terms-zero? (rest-terms terms)))))
+(define (poly-zero?) (terms-zero? (terms-list p)))
+
+(put '=zero? '(polynomial) (lambad (p1) (poly-zero? p1)))
