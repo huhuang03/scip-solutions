@@ -59,4 +59,9 @@
     (inverter a2 ~a2)
     (and-gate ~a1 ~a2 b)
     (inverter b output)))
+
 ;; time is 2(inverter) + and-gate
+;; t(or-gate) = 2t(inverter) + t(and-gate)
+;; t(half-adder) = 2t(and-gate) + t(or-gate)
+;; t(full-adder) = 2t(half-adder) + t(or-gate)
+;; t(link-adder) = nt(full-adder)
